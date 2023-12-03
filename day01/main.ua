@@ -1,15 +1,14 @@
 Split ← ⊜□≠,
-Input ← &fras "sample.txt"
 FirstNum ← parse ⊔ ⊡ 0 regex "\\d" ⊔
 LastNum ← parse ⊔ ⊡ - 1 ⧻ . regex "\\d" ⊔
+Input ← &fras "sample.txt"
 Lines ← Split @\n Input
 SplitAtIndex ← ⊃↙↘
 
-# &pf "Part 1: "
-# &s /+ + ∵LastNum Lines ×10 ∵FirstNum Lines
-
-# &pf "Part 2: "
-# &s NumberWords
+# PartOne ← /+ + ∵LastNum Lines ×10 ∵FirstNum
+PartOne ← /+ ⸮ + ⊃(∵LastNum)(∵(×10 FirstNum))
+&pf "Part 1: "
+&s PartOne Lines
 
 # Replace (from haystack to)
 ReplaceThrows ← ⊂ ⊙(⊂:) ⊙(↘:) SplitAtIndex ⊙: ⊢⊚ ⊃⌕⧻⊙.
@@ -22,7 +21,7 @@ NumbersWithWords ← ⍉ ⊟∵(□⍘parse)⇡ ⧻ . NumberWords
 
 ReplaceNumberWords ← ∧(Replace ⊙(:) ⊃(⊔ ⊡ 1)(⊔ ⊡ 0)) NumbersWithWords
 
-ReplaceNumberWords "abc1one"
-
-# PartTwoLines ← ∵ReplaceNumberWords Lines
-# PartTwoLines
+Input ← &fras "sample2.txt"
+Lines ← Split @\n Input
+&pf "Part 2: "
+PartOne ⊐∵ReplaceNumberWords Lines
