@@ -19,7 +19,10 @@ NumberWords ← Split @\s "zero one two three four five six seven eight nine"
 
 NumbersWithWords ← ⍉ ⊟∵(□⍘parse)⇡ ⧻ . NumberWords
 # &s NumbersWithWords
+
 ReplaceNumberWords ← ∧(Replace ⊙(:) ⊃(⊔ ⊡ 1)(⊔ ⊡ 0)) NumbersWithWords
 
-PartTwoLines ← ∵ReplaceNumberWords Lines
-PartTwoLines
+ReplaceNumberWords "abc1one"
+
+# PartTwoLines ← ∵ReplaceNumberWords Lines
+# PartTwoLines
