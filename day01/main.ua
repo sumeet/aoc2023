@@ -31,7 +31,6 @@ FindReplacement ← ↘ 1 ⊢ ≡(⊂⊃(⊢⊔⊡0)(⊏ 1_2)) Sort ▽ >0 ≡(�
 # Replace (from haystack to)
 DoOneReplacementThrows ← Replace ⊙: ⊃(⊔⊡ 1)(⊔⊡ 0) FindReplacement .
 DoOneReplacement ← ⍣DoOneReplacementThrows(;:)
-
 DoReplacements ← ⍥(DoOneReplacement)10
 
 &pf "Part 2: "
