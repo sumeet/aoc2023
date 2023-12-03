@@ -1,7 +1,7 @@
 Split ← ⊜□≠,
 FirstNum ← parse ⊔ ⊡ 0 regex "\\d" ⊔
 LastNum ← parse ⊔ ⊡ - 1 ⧻ . regex "\\d" ⊔
-Input ← &fras "sample.txt"
+Input ← &fras "input.txt"
 Lines ← Split @\n Input
 SplitAtIndex ← ⊃↙↘
 Sort ← ⊏⍏.
@@ -22,14 +22,18 @@ DigitsWithWords ← ⍉ ⊟∵(□⍘parse)⇡ ⧻ . NumberWords
 
 ReplaceNumberWords ← ∧(Replace ⊙(:) ⊃(⊔ ⊡ 1)(⊔ ⊡ 0)) DigitsWithWords
 
-Input ← &fras "sample2.txt"
-Lines ← Split @\n Input
-
 # Sort ♭ ∵⊔ ▽ >0∵⧻ . ∵(□⊚⌕⊔: "eighttwothree") NumberWords
 
 # ⊢ ≡(⊂⊃(⊢⊔⊡0)(⊡1)) Sort ▽ >0 ≡(⧻⊡0) . ≡(⊂ ⊃(□⊚⌕⊔: "eightwothree" ⊡1)(⊡0)) DigitsWithWords
 
-⊢ ≡(⊂⊃(⊢⊔⊡0)(⊡1)) Sort ▽ >0 ≡(⧻⊡0) . ≡(⊂ ⊃(□⊚⌕⊔: "eightwothree" ⊡1)(⊡0)) DigitsWithWords
+FindReplacement ← ↘ 1 ⊢ ≡(⊂⊃(⊢⊔⊡0)(⊏ 1_2)) Sort ▽ >0 ≡(⧻⊡0) . ≡(⊂⊂ ⊃⊃(□⊚⌕⊔: ⊔ : ⊙(⊡1) ⊡1⊔⊡0 .)(⊡0⊔⊡0)(⊡1⊔⊡0)) ≡⊂ ≡□ DigitsWithWords □
 
-# &pf "Part 2: "
+# Replace (from haystack to)
+DoOneReplacementThrows ← Replace ⊙: ⊃(⊔⊡ 1)(⊔⊡ 0) FindReplacement .
+DoOneReplacement ← ⍣DoOneReplacementThrows(;:)
+
+DoReplacements ← ⍥(DoOneReplacement)10
+
+&pf "Part 2: "
 # PartOne ⊐∵ReplaceNumberWords Lines
+&s PartOne ≡(□DoReplacements⊔) Lines
