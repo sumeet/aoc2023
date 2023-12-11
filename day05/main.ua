@@ -1,4 +1,4 @@
-Input ← &fras "sample.txt"
+Input ← &fras "input.txt"
 
 BlankLineMask ← ¬⌕ "\n\n" Input
 
@@ -14,13 +14,14 @@ ParsedMaps ← ≡(□ ⊜∘ /⊂ ≡(⊂⊂ . .) +1 ⇡ ÷3 ⧻ . °□) Unpar
 
 FirstSeed ← ⊢ Seeds
 
-FirstParsedMap ← ≡(♭) °□ ⊢ ParsedMaps
-
 RangeLo ← ⊡1
 RangeHi ← -1 +⊃(⊡1)(⊡ 2)
 Dest ← ⊡0
-Offset ← - ⊃(⸮RangeLo)(Dest)
+Offset ← - ⊃(RangeLo)(Dest)
 
 FirstSeed ← 79
 
-≡((¯1;|+FirstSeed Offset) ×⊃(≥FirstSeed RangeHi)(≤FirstSeed RangeLo) .) FirstParsedMap
+# (Map, Input) -> Output
+MapTo ← ⍣(⊙;⊢)(;:;) ▽ ≠¯1 . ≡((¯1;;|+ Offset) ×⊃(≥ : RangeHi)(≤ : RangeLo) ,,) ⊙.
+
+/↧ ≡(∧(MapTo ≡♭ °□) ParsedMaps) Seeds
