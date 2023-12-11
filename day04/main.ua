@@ -1,4 +1,4 @@
-&fras "sample.txt"
+&fras "input.txt"
 
 &pf "Part 1: "
 
@@ -53,20 +53,37 @@ CalcScore
 
 &pf "Part 2: "
 
-CountsAndMatches ← ∵(⊂ [1]) NumMatchesPerCard
+∵(⊂ [1]) NumMatchesPerCard
+
+# │ ╭─     
+# ├╴╷ 1 4  
+# │   1 2  
+# │   1 2  
+# │   1 1  
+# │   1 0  
+# │   1 0  
+# │       ╯
+
+CountsAndMatches ←
+
 Range ← ⇡⧻ CountsAndMatches
 RepeatN ← ;:⍥(⊂,) : []
 
-GetNumMatchesForRow ← ⊡1⊡
-GetNumCardsForRow ← ⊡0⊡
+# TODO: should be able to use this, but it seems like
+# there's a bug with the fill+
+# ∧(⬚0+ ? ⍉¤ ⊂⊃(RepeatN +1: 0)(RepeatN :°⊟ ⊡) :,) Range CountsAndMatches
 
-Index ← ⊢Range
+∧(+°⊟⬚0⊟ ⍉¤ ⊂⊃(RepeatN +1: 0)(RepeatN :°⊟ ⊡) :,) Range CountsAndMatches
 
-NumMatches ← GetNumMatchesForRow Index CountsAndMatches
-NumCards ← GetNumCardsForRow Index CountsAndMatches
+# │ ╭─      
+# ├╴╷  1 4  
+# │    2 2  
+# │    4 2  
+# │    8 1  
+# │   14 0  
+# │    1 0  
+# │        ╯
 
-# ⊂ RepeatN +1Index 0 RepeatN NumMatches NumCards
-# ⊂ RepeatN +1Index 0 RepeatN :°⊟ ⊡Index CountsAndMatches
-⊂⊃(RepeatN +1: 0)(RepeatN :°⊟ ⊡) Index CountsAndMatches
+/+⊢⍉
 
-⬚0+ CountsAndMatches
+# 30
