@@ -60,22 +60,22 @@ LowerPartOfInputRange ← ([];|¤⊂:↧⊓(-1 LowerBound)(⊃(UpperBound)(Lower
 # LowerPartOfInputRange [98 99 0] [55 67]
 # LowerPartOfInputRange [98 99 0] [55 99]
 
-UpperPartOfInputRange ← ([];|¤⊂⊓(+1 UpperBound)(UpperBound))>∩UpperBound,,
-UpperPartOfInputRange [81 89 0] [82 100]
-UpperPartOfInputRange [81 89 0] [100 200]
+UpperPartOfInputRange ← ([];|¤⊂↥⊓(+1 UpperBound)(⊃(LowerBound)(UpperBound)))>∩UpperBound,,
+# UpperPartOfInputRange [81 89 0] [82 100]
+# UpperPartOfInputRange [81 89 0] [100 200]
 
-FilterOutOfRange ← ⸮⊂⊃(LowerPartOfInputRange)(UpperPartOfInputRange) ?
+FilterOutOfRange ← °¤ ⊂⊃(LowerPartOfInputRange)(UpperPartOfInputRange)
 
 # FilterOutOfRange [2 15 0] [0 2]
 # FilterOutOfRange [2 15 0] [0 100]
 # FilterOutOfRange [2 15 0] [2 15]
 
-# FilterRangeFullOneIteration ← ⊂⊃(FilterOutOfRange)(FilterRangeWithOffset)
+FilterRangeFullOneIteration ← ?⊂?⊃(FilterOutOfRange)(FilterRangeWithOffset)
 
-# OneIteration ← ▽ >0 ≡(⧻) . /⊂ ⊠(□ FilterOutOfRange)
+OneIteration ← ≡(°□) ▽ >0 ≡(⧻) . ⸮ /⊂ ? ⊠(?FilterRangeFullOneIteration?)
 
 # OneIteration °□⊢ParsedMapsTwo SeedsTwo
 
-# ≡(⊡0) ∧(OneIteration °□) ParsedMapsTwo SeedsTwo
+≡(⊡0) ∧(OneIteration °□) ParsedMapsTwo SeedsTwo
 
 # &s /↧ ≡(∧(MapToTwo ≡♭ ? °□) ParsedMaps) SeedsTwo
