@@ -53,8 +53,8 @@ FilterInnerWithOffset ← +⊃(;:Offset)(MiddlePartOfRange)
 
 InnerAndOuter ← ⊃(FilterOutOfRange)(FilterInnerWithOffset)
 
-Map ← [98_99_1000000 50_97_9000000]
-Seeds ← [0_100 200_300]
+Map ← °□ ⊢ParsedMapsTwo
+Seeds ← SeedsTwo
 InitResults ← ⊟ : □[] □
 
 # repeats until new_value == initial_value
@@ -68,8 +68,9 @@ FirstSeedFromResults ← ⊢°□⊢
 JoinBackWithResults ← ⊟⊙(□⊂°□)□⊂°□⊙:⍜(°□)(↘1)°⊟:
 
 TakeThroughOneMap ← JoinBackWithResults ⊙: InnerAndOuter ⊙(FirstSeedFromResults.)
+TakeThroughOneMapSafe ← (TakeThroughOneMap|;)=0⧻⊢,
 
-RefoldUntilSeen!(TakeThroughOneMap ⊢Map) Results
+RefoldUntilSeen!(TakeThroughOneMapSafe ⊡1Map) Results
 
 # IsCompletelyInRange [98 99 0] [98 99]
 
