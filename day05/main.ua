@@ -31,51 +31,63 @@ ParsedMapsTwo ← ≡(□ ≡(⊂⊂⊃⊃(RangeLo)(RangeHi)(Offset)♭) °□) 
 SeedsTwo ← ⊜∘ /⊂ ≡(⊂.) +1 ⇡ ÷2 ⧻ . Seeds
 SeedsTwo ← ≡(⊂⊙+.⊙(-1)°⊟)SeedsTwo
 
-# ParsedMapsTwo
-# SeedsTwo
-Seed ← [79 92]
-SourceA ← [50 97]    # [[79 92]]
-SourceB ← [50 78]    # [[]]
-SourceC ← [50 79]    # [[79 79]]
-SourceD ← [92 100]   # [[92 92]]
-SourceE ← [84 93]    # [[84 92]]
-SourceF ← [104 3290] # [[]]
-
-# ([lower upper offset], haystack) => bool
+# ([lower upper offset], needle) => bool
 Between ← ×⊃(;:≤,⊡0)(;:≥,⊡1)
 
-# ([lower upper offset] haystacks) => bool
-# /↥ ≡(Between SourceF) [79 92]
-
-BetweenTwo ← ;:/↥ ≡(Between :,) ¤
-
-# ([lower upper offset] [itemLo itemHi]) (adds offset)
-FilterRangeWithOffset ← ([];;|⊂⊃(+⊃(/↧↥⊏0_1)(⊡2))(+⊃(/↥↧⊏0_1)(⊡2)))BetweenTwo , ,
+IsCompletelyInRange ← ;:/× ≡(Between ⊙.) ¤
 
 # ([lower upper offset] [itemLo itemHi])
 LowerBound ← ⊡0
 UpperBound ← ⊡1
+Offset ← ⊡2
 
-LowerPartOfInputRange ← ([];|¤⊂:↧⊓(-1 LowerBound)(⊃(UpperBound)(LowerBound)))<∩LowerBound,,
-# LowerPartOfInputRange [98 99 0] [55 67]
-# LowerPartOfInputRange [98 99 0] [55 99]
+LowerOutOfInputRange ← ([];|¤⊂:↧⊓(-1 LowerBound)(⊃(UpperBound)(LowerBound)))<∩LowerBound,,
+UpperOutOfInputRange ← ([];|¤⊂↥⊓(+1 UpperBound)(⊃(LowerBound)(UpperBound)))>∩UpperBound,,
 
-UpperPartOfInputRange ← ([];|¤⊂↥⊓(+1 UpperBound)(⊃(LowerBound)(UpperBound)))>∩UpperBound,,
-# UpperPartOfInputRange [81 89 0] [82 100]
-# UpperPartOfInputRange [81 89 0] [100 200]
+FilterOutOfRange ← ⊂⊃(LowerOutOfInputRange)(UpperOutOfInputRange)
 
-FilterOutOfRange ← °¤ ⊂⊃(LowerPartOfInputRange)(UpperPartOfInputRange)
+IsRangeValid ← ≥ °⊟
+MiddlePartOfRange ← ([];|¤) IsRangeValid . ⊟⊃(↥∩LowerBound)(↧∩UpperBound)
+
+FilterInnerWithOffset ← +⊃(;:Offset)(MiddlePartOfRange)
+
+InnerAndOuter ← ⊃(FilterOutOfRange)(FilterInnerWithOffset)
+
+Map ← [98_99_1000000 50_97_9000000]
+Seeds ← [0_100 200_300]
+InitResults ← ⊟ : □[] □
+
+# repeats until new_value == initial_value
+# (new_value) <- (initial_value)
+RefoldUntilSeen! ← ; ⍢(⊙^1)(⊙(⊂:,)¬↥0/↥♭⌕:) []
+
+# RefoldUntilNoChange!(TakeThroughOneMap ⊢ Map)
+
+Results ← InitResults Seeds
+FirstSeedFromResults ← ⊢°□⊢
+JoinBackWithResults ← ⊟⊙(□⊂°□)□⊂°□⊙:⍜(°□)(↘1)°⊟:
+
+TakeThroughOneMap ← JoinBackWithResults ⊙: InnerAndOuter ⊙(FirstSeedFromResults.)
+
+RefoldUntilSeen!(TakeThroughOneMap ⊢Map) Results
+
+# IsCompletelyInRange [98 99 0] [98 99]
 
 # FilterOutOfRange [2 15 0] [0 2]
 # FilterOutOfRange [2 15 0] [0 100]
 # FilterOutOfRange [2 15 0] [2 15]
 
-FilterRangeFullOneIteration ← ?⊂?⊃(FilterOutOfRange)(FilterRangeWithOffset)
+# FilterRangeFullOneIteration ← ⊂⊃(FilterOutOfRange)(FilterRangeWithOffset)
 
-OneIteration ← ≡(°□) ▽ >0 ≡(⧻) . ⸮ /⊂ ? ⊠(?FilterRangeFullOneIteration?)
+# OneIteration ← ≡(°□) ▽ >0 ≡(⧻) . /⊂ ⊠(FilterRangeFullOneIteration)
+
+# FilterRangeWithOffset ⊡1Map Seed
+
+# FilterMapWithOffset ← ≡(□FilterRangeWithOffset) ⊙¤
+# FilterMapWithOffset Map Seed
 
 # OneIteration °□⊢ParsedMapsTwo SeedsTwo
 
-≡(⊡0) ∧(OneIteration °□) ParsedMapsTwo SeedsTwo
+# ≡(⊡0) ∧(OneIteration °□) ParsedMapsTwo SeedsTwo
 
 # &s /↧ ≡(∧(MapToTwo ≡♭ ? °□) ParsedMaps) SeedsTwo
