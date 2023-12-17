@@ -47,9 +47,6 @@ HighCard ← ≍ 1_1_1_1_1 ⊏⍏. ⊜(⧻)+1⊛ . ⊏⍏.
 
 Rank ← ⊗1 ⊂⊂⊂⊂⊂⊂⊃⊃⊃⊃⊃⊃(HighCard)(OnePair)(TwoPair)(ThreeOfAKind)(FullHouse)(FourOfAKind)(FiveOfAKind)
 
-# Hands ← ≡°□⊢⍉
-# Hands
-
 ⊕(□) -/↧. ≡(Rank °□⊢) .
 
 # │ ╭─                                                                       
