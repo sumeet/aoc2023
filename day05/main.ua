@@ -53,7 +53,6 @@ FilterInnerWithOffset ← +⊃(;:Offset)(MiddlePartOfRange)
 
 InnerAndOuter ← ⊃(FilterOutOfRange)(FilterInnerWithOffset)
 
-Map ← °□ ⊢ParsedMapsTwo
 Seeds ← SeedsTwo
 InitResults ← ⊟ : □[] □
 
@@ -70,25 +69,41 @@ JoinBackWithResults ← ⊟⊙(□⊂°□)□⊂°□⊙:⍜(°□)(↘1)°⊟:
 TakeThroughOneMap ← JoinBackWithResults ⊙: InnerAndOuter ⊙(FirstSeedFromResults.)
 TakeThroughOneMapSafe ← (TakeThroughOneMap|;)=0⧻⊢,
 
-RefoldUntilSeen!(TakeThroughOneMapSafe ⊡1Map) Results
+FlippyFloppy ← InitResults ⊂∩(°□)°⊟
 
-# IsCompletelyInRange [98 99 0] [98 99]
+# seed-to-soil
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡0°□⊡0ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡1°□⊡0ParsedMapsTwo) Results
+Results ← FlippyFloppy Results
+# # soil-to-fertilizer
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡0°□⊡1ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡1°□⊡1ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡2°□⊡1ParsedMapsTwo) Results
+Results ← FlippyFloppy Results
+# # fertilizer-to-water
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡0°□⊡2ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡1°□⊡2ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡2°□⊡2ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡3°□⊡2ParsedMapsTwo) Results
+Results ← FlippyFloppy Results
+# # water-to-light
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡0°□⊡3ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡1°□⊡3ParsedMapsTwo) Results
+Results ← FlippyFloppy Results
+# # light-to-temperature
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡0°□⊡4ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡1°□⊡4ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡2°□⊡4ParsedMapsTwo) Results
+Results ← FlippyFloppy Results
+# # temperature-to-humidity
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡0°□⊡5ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡1°□⊡5ParsedMapsTwo) Results
+Results ← FlippyFloppy Results
+# # humidity-to-location
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡0°□⊡6ParsedMapsTwo) Results
+Results ← RefoldUntilSeen!(TakeThroughOneMapSafe ⊡1°□⊡6ParsedMapsTwo) Results
+Results ← FlippyFloppy Results
 
-# FilterOutOfRange [2 15 0] [0 2]
-# FilterOutOfRange [2 15 0] [0 100]
-# FilterOutOfRange [2 15 0] [2 15]
+Results
 
-# FilterRangeFullOneIteration ← ⊂⊃(FilterOutOfRange)(FilterRangeWithOffset)
-
-# OneIteration ← ≡(°□) ▽ >0 ≡(⧻) . /⊂ ⊠(FilterRangeFullOneIteration)
-
-# FilterRangeWithOffset ⊡1Map Seed
-
-# FilterMapWithOffset ← ≡(□FilterRangeWithOffset) ⊙¤
-# FilterMapWithOffset Map Seed
-
-# OneIteration °□⊢ParsedMapsTwo SeedsTwo
-
-# ≡(⊡0) ∧(OneIteration °□) ParsedMapsTwo SeedsTwo
-
-# &s /↧ ≡(∧(MapToTwo ≡♭ ? °□) ParsedMaps) SeedsTwo
+/↧°□♭⊢
