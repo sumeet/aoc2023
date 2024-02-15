@@ -19,9 +19,6 @@ Instructions ← # "RL"
 
 ≡(≡(/(+×26) -@A))
 
-&p "Table Before Classification"
-&s .
-
 # ╭─
 # ╷     0   703   703
 #     703     0 17575
@@ -34,12 +31,6 @@ Instructions ← # "RL"
 AIndexes ← # [0 2]
 ZIndexes ← # [3]
 
-&p "AIndexes"
-&s AIndexes
-
-&p "ZIndexes"
-&s ZIndexes
-
 ⍜♭⊛
 
 # ╭─
@@ -49,19 +40,10 @@ ZIndexes ← # [3]
 #   2 2 2
 #         ╯
 
-&p "Table After Classification"
-&s .
-
 ⊃(≡⊢⊏AIndexes)(⊢⍉⊏ZIndexes) .
 
 AMapIndexes ← # [0 3]
 ZMapIndexes ← # [2]
-
-&p "AMapIndexes"
-&s AMapIndexes
-
-&p "ZMapIndexes"
-&s ZMapIndexes
 
 ⊏⍏.
 
@@ -75,10 +57,22 @@ ZMapIndexes ← # [2]
 Map ←
 
 GetInstruction ← =@R ⊡ : Instructions ◿ ⧻ Instructions
-GetInstructions ← ≡(GetInstruction °□)
 
-⍢(
-  ⊟□≡(⊡+1)GetInstructions:⊙:⊓(⊏ : Map °□)(+1.)°⊟
+IterateUntilEndsWithZ ← ⍢(
+  ⊟⊡+1GetInstruction:⊙:⊓(⊡ : Map)(+1.)°⊟
 )(
-  ¬ /× ∊:ZMapIndexes °□⊡0
-) [□AMapIndexes 0]
+  =0 /× ∊:ZMapIndexes °□⊡0
+) ⊂ : 0
+
+≡(⊡ 1 IterateUntilEndsWithZ) AMapIndexes
+
+# [21409 14363 15989 16531 19241 19783]
+
+FirstZCounts ←
+
+GCD ← ◌⍢⊃◿∘±
+LCM ← ÷⊃(GCD)(⌵×)
+
+/LCM FirstZCounts
+
+# 21165830176709

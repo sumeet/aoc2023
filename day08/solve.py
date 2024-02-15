@@ -15,14 +15,20 @@ poss = [k for k in map.keys() if k.endswith("A")]
 chinese = []
 
 for pos in poss:
-    orig_pos = pos
-    z_count = 0
     for count in range(100_000):
         pos = map[pos][DIRECTIONS[count % len(DIRECTIONS)] == "R"]
         if pos.endswith("Z"):
-            print(f'{orig_pos}: {count}: {pos} diff: {prev - count}')
-            z_count += 1
-        count += 1
+            chinese.append(count+1)
+            break
+
+print(chinese)
+
+def lcm(a, b):
+    import math
+    return abs(a*b) // math.gcd(a, b)
+
+from functools import reduce
+print(reduce(lcm, chinese))
 
 
 #count = 0
