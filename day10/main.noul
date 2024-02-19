@@ -1,0 +1,21 @@
+rows := lines ! read_file "sample.txt";
+
+r := 0;
+c := 0;
+for (y, row <- enumerate(rows)) (
+  for (x, char <- enumerate(row)) (
+    if (char == 'S') (
+      r,c = y,x;
+      break;
+    )
+  )
+);
+
+dirs := [V(1, 0), V(0, 1), V(-1, 0), V(0, -1)];
+nbors := \pos -> (
+  dirs.map((+ pos)).map(\x -> rows[x[0]][x[1]])
+);
+
+
+pos := V(r, c);
+nbors pos
