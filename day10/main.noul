@@ -48,10 +48,37 @@ rows[start[1]][start[0]] = '7';
 cur := start;
 dir := V(0, 1); # hardcoded because i'm going down first from 7
 ct := 0;
+poss := [];
+poss +.= cur;
 cur += dir;
 while (cur != start) (
+  poss +.= cur;
   dir = dirmap[dir][get cur];
   cur += dir;
   ct += 1;
 );
-(ct//2)+1
+
+#print ! (ct//2)+1;
+
+new_grid := rows;
+on_loop := set(poss);
+for (y <- 0 til len(new_grid)) (
+  for (x <- 0 til len(new_grid[y])) (
+    if (not ! V(x, y) in on_loop) (
+      new_grid[y][x] = ' ';
+    );
+  );
+);
+
+display := \graph_str -> (
+  graph_str
+    .replace('7', '┐')  # 90-degree bend connecting south and west
+    .replace('\\|', '│')  # Vertical pipe
+    .replace('-', '─')  # Horizontal pipe
+    .replace('L', '└')  # 90-degree bend connecting north and east
+    .replace('J', '┘')  # 90-degree bend connecting north and west
+    .replace('F', '┌')  # 90-degree bend connecting south and east
+    .replace('\\.', ' ')
+);
+
+print(display ! new_grid join "\n");
