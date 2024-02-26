@@ -17,7 +17,7 @@ for (r, row <- enumerate(rows)) (
 # .....
 # .....
 
-dirs := {
+dirmap := {
   V(1, 0): { # right
     '-': V(1, 0), # sends you right
     '7': V(0, 1), # sends you down
@@ -42,55 +42,16 @@ dirs := {
 
 get := \xy -> rows[xy[1]][xy[0]];
 
-inbounds_neighbor_poss := \pos -> (
-  items(dirs).map(\(dir, nextmap) -> (
-    next_pos := dir+pos;
-    nbor_val := try get next_pos catch _ -> return null;
-    try (
-      next_next_pos := nextmap[nbor_val] + next_pos;
-      get next_next_pos;
-      next_next_pos
-    ) catch _ -> null
-  )).filter(id)
-);
-
-struct Frame (pos, prevs);
-
 start := V(x, y);
-stack := [Frame(start, [])];
-collect := [];
-seen := {};
+rows[start[1]][start[0]] = '7';
 
-score := \frame -> int((len(frame.prevs) + 1));
-
-while (stack) (
-  frame := pop stack;
-
-  if (frame.pos in seen) continue;
-  seen |.= frame.pos;
-
-  for (nbor_pos <- inbounds_neighbor_poss(frame.pos)) (
-    nbor_val := get nbor_pos;
-    if ((nbor_val == 'S') and (len(frame.prevs) > 1)) (
-      if ((frame.prevs)[1] != frame.pos) (
-        print('got one', score(frame));
-        collect +.= frame;
-      );
-    );
-    if (nbor_pos in frame.prevs) continue;
-    stack +.= Frame(nbor_pos, frame.prevs +. frame.pos);
-  );
+cur := start;
+dir := V(0, 1); # hardcoded because i'm going down first from 7
+ct := 0;
+cur += dir;
+while (cur != start) (
+  dir = dirmap[dir][get cur];
+  cur += dir;
+  ct += 1;
 );
-
-#collect = reverse ! sort_on score ! collect;
-
-#collect +.= int((len(frame.prevs) + 1));
-c := collect[0];
-new_rows := rows;
-for (pos <- (c.prevs)[1:]) (
-  new_rows[pos[1]][pos[0]] = 'X';
-);
-
-for (row <- new_rows) (
-  print(row join "");
-);
+(ct//2)+1
